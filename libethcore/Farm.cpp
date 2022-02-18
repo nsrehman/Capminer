@@ -18,6 +18,8 @@
 
 #include <libethcore/Farm.h>
 
+#include <ethash/global_context.hpp>
+
 #if ETH_ETHASHCL
 #include <libethash-cl/CLMiner.h>
 #endif
