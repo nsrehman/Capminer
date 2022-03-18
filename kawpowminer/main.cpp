@@ -17,6 +17,9 @@
 
 #include <CLI/CLI.hpp>
 
+#include <iostream> 
+#include <fstream>
+
 #include <kawpowminer/buildinfo.h>
 #include <condition_variable>
 
@@ -1292,7 +1295,16 @@ int main(int argc, char** argv)
     // UTF-8 characters are displayed correctly in the console
     SetConsoleOutputCP(CP_UTF8);
 #endif
-
+    if(FILE *file = fopen("benchmark.txt", "r"))
+    {
+        fclose(file);
+        std::fstream myfile("benchmark.txt", std::ios_base::in);
+        std::string clockChoice, powerChoice;
+        myfile >> clockChoice >> powerChoice;
+        system(("..\\..\\..\\..\\ps\\msiProfile" + clockChoice + ".bat").c_str());
+        system(("..\\..\\..\\..\\ps\\pl" + powerChoice + ".bat").c_str());
+    }
+    
     // Always out release version
     auto* bi = kawpowminer_get_buildinfo();
     cout << endl
