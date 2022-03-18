@@ -32,7 +32,7 @@ using namespace eth;
 
 struct CUDAChannel : public LogChannel
 {
-    static const char* name() { return EthOrange "cu"; }
+    static const char* name() { return EthOrange ""; }
     static const int verbosity = 2;
 };
 #define cudalog clog(CUDAChannel)
@@ -62,7 +62,6 @@ bool CUDAMiner::initDevice()
     m_hwmoninfo.deviceType = HwMonitorInfoType::NVIDIA;
     m_hwmoninfo.devicePciId = m_deviceDescriptor.uniqueId;
     m_hwmoninfo.deviceIndex = -1;  // Will be later on mapped by nvml (see Farm() constructor)
-
     try
     {
         CU_SAFE_CALL(cuDeviceGet(&m_device, m_deviceDescriptor.cuDeviceIndex));

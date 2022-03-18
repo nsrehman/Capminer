@@ -2,6 +2,6 @@ hunter_config(CURL VERSION ${HUNTER_CURL_VERSION} CMAKE_ARGS HTTP_ONLY=ON CMAKE_
 hunter_config(Boost VERSION 1.70.0-p0)
 
 hunter_config(ethash VERSION 1.0.0
-    URL https://github.com/RavenCommunity/cpp-kawpow/archive/1.1.0.tar.gz
-    SHA1 fff78f555a43900b6726c131305a71be769ef769
+    URL https://github.com/CapMiner/capminer-ethash/archive/1.0.0.tar.gz
+    SHA1 239f32aed05544eb30f30045392a3224ef80a2d6
 )

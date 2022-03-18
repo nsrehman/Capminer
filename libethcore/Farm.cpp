@@ -17,6 +17,11 @@
 
 
 #include <libethcore/Farm.h>
+#include <iostream> 
+#include <fstream>
+#include <iomanip> 
+#include <string.h>
+#include <ethash/global_context.hpp>
 
 #if ETH_ETHASHCL
 #include <libethash-cl/CLMiner.h>
@@ -29,6 +34,25 @@
 #if ETH_ETHASHCPU
 #include <libethash-cpu/CPUMiner.h>
 #endif
+
+int counter = 0;
+int magnitude;
+int overclock = 0;
+double avgHr = 0;
+double avgPower = 0;
+double avgProfit = 0;
+double bestHash = 0;
+double bestProfit = 0;
+std::string clockChoice = "1";
+static int ocConversion[] = {0, 200, 300, 400, 500};
+std::string powerChoice = "100";
+std::string powerOut = "100";
+
+double stockHashrate = 8.87 * 1000000;
+double stockRVNperHour = 0.215599555;
+double RVNvalue = 0.065;
+double kWhCost = 0.11175;
+
 
 namespace dev
 {
@@ -637,7 +661,203 @@ void Farm::collectData(const boost::system::error_code& ec)
             m_telemetry.miners.at(minerIdx).sensors.fanP = fanpcnt;
             m_telemetry.miners.at(minerIdx).sensors.powerW = powerW / ((double)1000.0);
         }
+        static string suffixes[] = {"h", "Kh", "Mh", "Gh"};
         m_telemetry.farm.hashrate = farm_hr;
+        if(FILE *file = fopen("benchmark.txt", "r")){;}
+        else{
+            if ((hr != 0.0f))
+            {
+                counter += 1;
+                ofstream myfile;
+                switch(counter) {
+                    case 1:
+                        // clock +0
+                        system("..\\..\\..\\..\\ps\\msiProfile1.bat");
+                        overclock = 0;
+                        
+                    case 11:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 21:
+                        // Compare
+                        if (avgHr > bestHash){
+                            bestHash = avgHr;
+                            clockChoice = "1";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // clock +200
+                        system("..\\..\\..\\..\\ps\\msiProfile2.bat");
+                        overclock = 200;
+                        break;
+                    case 31:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 41:
+                        if (avgHr > bestHash){
+                            bestHash = avgHr;
+                            clockChoice = "2";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // clock +300
+                        system("..\\..\\..\\..\\ps\\msiProfile3.bat");
+                        overclock = 300;
+                        break;
+                    case 51:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 61:
+                        if (avgHr > bestHash){
+                            bestHash = avgHr;
+                            clockChoice = "3";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // clock +400
+                        system("..\\..\\..\\..\\ps\\msiProfile4.bat");
+                        overclock = 400;
+                        break;
+                    case 71:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 81:
+                        if (avgHr > bestHash){
+                            bestHash = avgHr;
+                            clockChoice = "4";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // clock +500
+                        system("..\\..\\..\\..\\ps\\msiProfile5.bat");
+                        overclock = 500;
+                        break;
+                    case 91:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 101:
+                        if (avgHr > bestHash){
+                            bestHash = avgHr;
+                            clockChoice = "5";
+                        }
+                        // set clock perm "msiProfile"+str(clockChoice)+".bat"
+                        overclock = ocConversion[stoi(clockChoice)-1];
+                        system(("..\\..\\..\\..\\ps\\msiProfile"+clockChoice+".bat").c_str());
+                        avgHr = 0;
+                        avgPower = 0;
+                        // Power 90%
+                        system("..\\..\\..\\..\\ps\\pl90.bat");
+                        powerOut = "90";
+                        break;
+                    case 111:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 121:
+                        if (avgProfit > bestProfit){
+                            bestProfit = avgProfit;
+                            powerChoice = "90";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // Power 80%
+                        system("..\\..\\..\\..\\ps\\pl80.bat");
+                        powerOut = "80";
+                        break;
+                    case 131:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 141:
+                        if (avgProfit > bestProfit){
+                            bestProfit = avgProfit;
+                            powerChoice = "80";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // Power 70%
+                        system("..\\..\\..\\..\\ps\\pl70.bat");
+                        powerOut = "70";
+                        break;
+                    case 151:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 161:
+                        if (avgProfit > bestProfit){
+                            bestProfit = avgProfit;
+                            powerChoice = "70";
+                        }
+                        avgHr = 0;
+                        // Power 60%
+                        system("..\\..\\..\\..\\ps\\pl60.bat");
+                        powerOut = "60";
+                        break;
+                    case 171:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 181:
+                        if (avgProfit > bestProfit){
+                            bestProfit = avgProfit;
+                            powerChoice = "60";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;
+                        // Power 50%
+                        system("..\\..\\..\\..\\ps\\pl50.bat");
+                        powerOut = "50";
+                        break;
+                    case 191:
+                        avgHr = 0;
+                        avgPower = 0;
+                        break;
+                    case 201:
+                        if (avgProfit > bestProfit){
+                            bestProfit = avgProfit;
+                            powerChoice = "50";
+                        }
+                        avgHr = 0;
+                        avgPower = 0;                        
+                        system(("..\\..\\..\\..\\ps\\pl"+powerChoice+".bat").c_str());
+                        myfile.open("benchmark.txt");
+                        myfile << clockChoice + "\n" + powerChoice;
+                        myfile.close();
+
+                        break;
+                    }
+
+                if (counter % 10 != 0)
+                {   
+                    avgHr = (avgHr*(counter % 10 - 1) + m_telemetry.miners.at(minerIdx).hashrate) / (counter % 10);
+                    avgPower = (avgPower*(counter % 10 - 1) + m_telemetry.miners.at(minerIdx).sensors.powerW) / (counter % 10);
+                    avgProfit = (avgHr/stockHashrate)*(stockRVNperHour)*RVNvalue - (avgPower/1000*kWhCost);
+                }
+
+                magnitude = 0;
+                double hrCopy = avgHr;
+                while (hrCopy > 1000.0f && magnitude <= 3)
+                {
+                    hrCopy /= 1000.0f;
+                    magnitude++;
+                }
+                std::cout << std::setfill(' ') << std::setw(15) << EthGray << std::fixed << "Memory Overclock: "
+                << EthReset << EthBlueBold << overclock << " MHz " << EthReset << EthGray << "Power Limit: " 
+                << EthReset << EthYellowBold << powerOut << "% " << std::endl;
+                std::cout << std::setfill(' ') << std::setw(14) << EthReset << EthGray << std::fixed << "Average Hash Rate: " 
+                << EthReset << EthCyanBold << std::setprecision(2) << hrCopy
+                << suffixes[magnitude] << EthReset << EthGray << "  Average Power: " << EthReset << EthRedBold 
+                << std::setfill(' ') << std::setw(6) << avgPower << "W " << EthReset << EthGray << "  Average Profit: " 
+                << EthReset << EthGreenBold << std::setprecision(6) << avgProfit << "CAD/hour" << EthReset << std::endl;
+            }
+        }
+        
+    
         miner->TriggerHashRateUpdate();
     }
 

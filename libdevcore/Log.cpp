@@ -47,7 +47,7 @@ const char* WarnChannel::name()
 }
 const char* NoteChannel::name()
 {
-    return EthBlue " i";
+    return EthBlue "";
 }
 
 LogOutputStreamBase::LogOutputStreamBase(char const* _id)
@@ -55,15 +55,14 @@ LogOutputStreamBase::LogOutputStreamBase(char const* _id)
     static std::locale logLocl = std::locale("");
         m_sstr.imbue(logLocl);
         if (g_logSyslog)
-            m_sstr << std::left << std::setw(8) << getThreadName() << " " EthReset;
+            m_sstr << std::left << " " EthReset;
         else
         {
             time_t rawTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
             char buf[24];
             if (strftime(buf, 24, "%X", localtime(&rawTime)) == 0)
                 buf[0] = '\0';  // empty if case strftime fails
-            m_sstr << _id << " " EthViolet << buf << " " EthBlue << std::left << std::setw(9)
-                   << getThreadName() << " " EthReset;
+            m_sstr << _id << " " EthViolet << buf << " " EthBlue << std::left << "" EthReset;
         }
 }
 

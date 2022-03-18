@@ -18,6 +18,7 @@
 #include "EthashAux.h"
 
 #include <ethash/ethash.hpp>
+#include <ethash/global_context.hpp>
 #include <ethash/progpow.hpp>
 #include <ethash/hash_types.hpp>
 

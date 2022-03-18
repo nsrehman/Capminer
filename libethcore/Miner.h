@@ -148,10 +148,11 @@ struct HwSensorsType
     double powerW = 0.0;
     string str()
     {
-        string _ret = to_string(tempC) + "C " + to_string(fanP) + "%";
-        if (powerW)
-            _ret.append(boost::str(boost::format("%f") % powerW));
-        return _ret;
+        stringstream _ret;
+        
+        _ret << EthGreen << "Temp: " << EthReset << EthGreenBold << to_string(tempC) << "C   " << EthReset << EthGreen << "Fan Power: " << EthGreenBold 
+             << to_string(fanP) << "%   " << EthReset << EthGreen << "Power: " << EthReset << EthGreenBold << boost::str(boost::format("%.2f") % powerW) << "W";
+        return _ret.str();
     };
 };
 
@@ -261,8 +262,11 @@ struct TelemetryType
         int hoursSize = (hours.count() > 9 ? (hours.count() > 99 ? 3 : 2) : 1);
         duration -= hours;
         auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
-        _ret << EthGreen << setw(hoursSize) << hours.count() << ":" << setfill('0') << setw(2)
-             << minutes.count() << EthReset << EthWhiteBold << " " << farm.solutions.str()
+        //_ret << EthGreen << setw(hoursSize) << hours.count() << ":" << setfill('0') << setw(2)
+        //     << minutes.count() << EthReset << EthWhiteBold << " " << farm.solutions.str()
+        //     << EthReset << " ";
+        _ret << EthGray << "ET: " << setw(hoursSize) << hours.count() << "Hrs " << setfill('0') << setw(2)
+             << minutes.count() << "Mins" << EthReset << " " << EthOrangeUnder << "Current Solution: " << farm.solutions.str()
              << EthReset << " ";
 
         /*
@@ -281,8 +285,8 @@ struct TelemetryType
             magnitude++;
         }
 
-        _ret << EthTealBold << std::fixed << std::setprecision(2) << hr << " "
-             << suffixes[magnitude] << EthReset << " - ";
+        _ret << EthCyan << std::fixed << "Hash Rate: " << EthReset << EthCyanBold << std::setprecision(2) << hr
+             << suffixes[magnitude] << EthReset;
 
         int i = -1;                 // Current miner index
         int m = miners.size() - 1;  // Max miner index
@@ -293,11 +297,11 @@ struct TelemetryType
             if (hr > 0.0f)
                 hr /= pow(1000.0f, magnitude);
 
-            _ret << (miner.paused ? EthRed : "") << miner.prefix << i << " " << EthTeal
-                 << std::fixed << std::setprecision(2) << hr << EthReset;
+            //_ret << (miner.paused ? EthRed : "") << miner.prefix << i << " " << EthTeal
+            //     << std::fixed << std::setprecision(2) << hr << EthReset;
 
             if (hwmon)
-                _ret << " " << EthTeal << miner.sensors.str() << EthReset;
+                _ret << " " << miner.sensors.str() << EthReset;
 
             // Eventually push also solutions per single GPU
             if (g_logOptions & LOG_PER_GPU)
