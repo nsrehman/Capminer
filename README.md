@@ -90,18 +90,17 @@ cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner\build\build\CapMiner\Release
 
 ### Connecting to a Pool
 
-1. Launch Command Prompt
-2. Navigate to **capminer.exe** directory:
+1. Navigate to **capminer.exe** directory:
 ```
 cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner\build\build\CapMiner\Release
 ```
-3. Enter the following:
+2. Locate the start.bat and edit the file in notepad. Change the first line to have your wallet and worker name.
 ```
 kawpowminer.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
 ```
 Replace <wallet> with your own mining address to start earning for yourself. Feel free to replace "worker" to name your miner something meaningful.
 
-4. If successful, CapMiner will initialize and begin to run as shown:
+3. If successful, CapMiner will initialize and begin to run as shown:
    
 **Miner spinning up:** <br />
 <img src="images/start.png" width="750" height="400">
@@ -126,10 +125,19 @@ Used for C/C++ projects to control the software compilation process with configu
 ### Boost 
 General C++ source library with various functionality including IO timers and threads.
 ### Cable
+Cable is a set of CMake modules and scripts containing common patterns used in CMake-based C++ projects.
 ### CLI11
-
+CLI11 is a command line parser for C++11 and beyond that provides a rich feature set with a simple and intuitive interface.
 ### OpenSSL
+OpenSSL is a robust, commercial-grade, full-featured Open Source Toolkit for the Transport Layer Security (TLS) protocol formerly known as the Secure Sockets Layer (SSL) protocol.
 ### JsonCPP
+JsonCpp is a C++ library that allows manipulating JSON values, including serialization and deserialization to and from strings.
+   
 ## F.A.Q.
+### How does CapMiner improve upon kawpowminer?
+CapMiner implements an automatic benchmark system that starts upon app launch. In an average time of 17 minutes, the program cycles different combinations of memory clock speed and power limit. The combination that generates the highest profit is selected and the seetings are saved for use.
+### How do I redo the benchmark?
+Go to the path where the main .exe is located and delete the benchmark.txt file. Doing this and re-running the application normally will prompt the app to benchmark once again.
 
+   
 [Releases]: https://github.com/capminer/capminer/releases
