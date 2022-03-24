@@ -103,16 +103,16 @@ Replace <wallet> with your own mining address to start earning for yourself. Fee
 3. If successful, CapMiner will initialize and begin to run as shown:
    
 **Miner spinning up:** <br />
-<img src="images/start.png" width="750" height="400">
+<img src="images/start.png" width="580" height="300">
    
 **Benchmark start:** <br />
-<img src="images/benchstart.png" width="750" height="400">
+<img src="images/benchstart.png" width="580" height="300">
    
 **Benchmark complete and miner resumes as usual:** <br />
-<img src="images/benchdone.png" width="750" height="400">
+<img src="images/benchdone.png" width="580" height="300">
    
 **Graphs of benchmark data open as bench completes:** <br />
-<img src="images/benchgraphs.png" width="750" height="400">
+<img src="images/benchgraphs.png" width="750" height="330">
 
 ### Closing the program
 If you wish to automatically return to stock GPU settings, on the CapMiner commandline press **ctrl+c ctrl+c ctrl+c** in a sequence. This will exit CapMiner and launch a script to return to profile 1 'stock settings' in MSI Afterburner.
