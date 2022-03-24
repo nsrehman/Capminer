@@ -21,6 +21,10 @@
 #include <fstream>
 #include <iomanip> 
 #include <string.h>
+#include <vector>
+#include <random>
+#include <numeric>
+#include "gnuplot-iostream.h"
 #include <ethash/global_context.hpp>
 
 #if ETH_ETHASHCL
@@ -52,12 +56,19 @@ double stockHashrate = 8.87 * 1000000;
 double stockRVNperHour = 0.215599555;
 double RVNvalue = 0.065;
 double kWhCost = 0.11175;
+// Gnuplot gp("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\"");
 
+// FILE *file = fopen("plot.dat", "a");
+ofstream plotData;
+bool append = false;
 
 namespace dev
 {
 namespace eth
 {
+
+
+
 Farm* Farm::m_this = nullptr;
 
 Farm::Farm(std::map<std::string, DeviceDescriptor>& _DevicesCollection,
@@ -212,6 +223,35 @@ void Farm::shuffle()
     random_device engine;
     m_nonce_scrambler = uniform_int_distribution<uint64_t>()(engine);
 }
+
+
+void Farm::plot(bool isHash)
+{
+    if (isHash){
+        Gnuplot gp("gnuplot -persist");
+        gp << "set title \"Hash Benchmark\" font \",12\"\n";
+        gp << "set xlabel \"Iteration\" font \",12\"\n";
+        gp << "set ylabel \"Hash Rate (h)\" font \",12\"\n";
+        gp << "set grid\n";
+        gp << "plot for[in=0:4] \"plot.dat\" i in u 1:2 w lp pt 7 t columnheader(1)\n";
+        gp << "set terminal pngcairo enhanced font \"Times New Roman,12.0\" size 1500,1100\n";
+        gp << "--set output \"hashBenchmark.png\"\n";
+        gp << "replot\n";
+    }
+    else{
+        Gnuplot gp("gnuplot -persist");
+        gp << "set title \"Profit Benchmark\" font \",12\"\n";
+        gp << "set xlabel \"Iteration\" font \",12\"\n";
+        gp << "set ylabel \"Profit per Hour (CAD/hr)\" font \",12\"\n";
+        gp << "set grid\n";
+        gp << "plot for[in=5:9] \"plot.dat\" i in u 1:4 w lp pt 7 t columnheader(1)\n";
+        gp << "set terminal pngcairo enhanced font \"Times New Roman,12.0\" size 1500,1100\n";
+        gp << "--set output \"profitBenchmark.png\"\n";
+        gp << "replot\n";
+    }
+}
+
+
 
 void Farm::setWork(WorkPackage const& _newWp)
 {
@@ -671,15 +711,21 @@ void Farm::collectData(const boost::system::error_code& ec)
                 ofstream myfile;
                 switch(counter) {
                     case 1:
+                        // append = false;
                         // clock +0
                         system("..\\..\\..\\..\\ps\\msiProfile1.bat");
                         overclock = 0;
-                        
+                        break;
                     case 11:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\"0MHz OC\"" << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 21:
+                        append = false;
                         // Compare
                         if (avgHr > bestHash){
                             bestHash = avgHr;
@@ -692,10 +738,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         overclock = 200;
                         break;
                     case 31:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n" <<  "\"200MHz OC\"" << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 41:
+                        append = false;
                         if (avgHr > bestHash){
                             bestHash = avgHr;
                             clockChoice = "2";
@@ -707,10 +758,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         overclock = 300;
                         break;
                     case 51:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n" <<  "\"300MHz OC\"" << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 61:
+                        append = false;
                         if (avgHr > bestHash){
                             bestHash = avgHr;
                             clockChoice = "3";
@@ -722,10 +778,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         overclock = 400;
                         break;
                     case 71:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n" <<  "\"400MHz OC\"" << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 81:
+                        append = false;
                         if (avgHr > bestHash){
                             bestHash = avgHr;
                             clockChoice = "4";
@@ -737,10 +798,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         overclock = 500;
                         break;
                     case 91:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n" <<  "\"500MHz OC\"" << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 101:
+                        append = false;
                         if (avgHr > bestHash){
                             bestHash = avgHr;
                             clockChoice = "5";
@@ -755,10 +821,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         powerOut = "90";
                         break;
                     case 111:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n\"" << overclock << " MHz" << "  @ 90% Power\""  << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 121:
+                        append = false;
                         if (avgProfit > bestProfit){
                             bestProfit = avgProfit;
                             powerChoice = "90";
@@ -770,10 +841,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         powerOut = "80";
                         break;
                     case 131:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n\"" << overclock << " MHz" << "  @ 80% Power\""  << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 141:
+                        append = false;
                         if (avgProfit > bestProfit){
                             bestProfit = avgProfit;
                             powerChoice = "80";
@@ -785,10 +861,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         powerOut = "70";
                         break;
                     case 151:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n\"" << overclock << " MHz" << "  @ 70% Power\""  << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 161:
+                        append = false;
                         if (avgProfit > bestProfit){
                             bestProfit = avgProfit;
                             powerChoice = "70";
@@ -799,10 +880,15 @@ void Farm::collectData(const boost::system::error_code& ec)
                         powerOut = "60";
                         break;
                     case 171:
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n\"" << overclock << " MHz" << "  @ 60% Power\""  << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 181:
+                        append = false;
                         if (avgProfit > bestProfit){
                             bestProfit = avgProfit;
                             powerChoice = "60";
@@ -814,10 +900,16 @@ void Farm::collectData(const boost::system::error_code& ec)
                         powerOut = "50";
                         break;
                     case 191:
+                        
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << "\n" << "\n\"" << overclock << " MHz" << "  @ 50% Power\""  << "\n";
+                        plotData.close();
+                        append = true;
                         avgHr = 0;
                         avgPower = 0;
                         break;
                     case 201:
+                        append = false;
                         if (avgProfit > bestProfit){
                             bestProfit = avgProfit;
                             powerChoice = "50";
@@ -825,9 +917,27 @@ void Farm::collectData(const boost::system::error_code& ec)
                         avgHr = 0;
                         avgPower = 0;                        
                         system(("..\\..\\..\\..\\ps\\pl"+powerChoice+".bat").c_str());
+                        
+                       
+                        char cChoice;
+                        char pChoice;
+
                         myfile.open("benchmark.txt");
-                        myfile << clockChoice + "\n" + powerChoice;
+                        for(int i = 0; i < clockChoice.length(); i++){
+                            cChoice = clockChoice[i] + 100;
+                            myfile << cChoice;
+                        }
+                        myfile << "\n";
+                        for(int i = 0; i < powerChoice.length(); i++){
+                            pChoice = powerChoice[i] + 100;
+                            myfile << pChoice;
+                        }
+                        
+                        //myfile << clockChoice + "\n" + powerChoice;
+                        //myfile << cChoice + "\n" + pChoice;
                         myfile.close();
+                        plot(true);
+                        plot(false);
 
                         break;
                     }
@@ -837,6 +947,11 @@ void Farm::collectData(const boost::system::error_code& ec)
                     avgHr = (avgHr*(counter % 10 - 1) + m_telemetry.miners.at(minerIdx).hashrate) / (counter % 10);
                     avgPower = (avgPower*(counter % 10 - 1) + m_telemetry.miners.at(minerIdx).sensors.powerW) / (counter % 10);
                     avgProfit = (avgHr/stockHashrate)*(stockRVNperHour)*RVNvalue - (avgPower/1000*kWhCost);
+                    if (append == true){
+                        plotData.open("plot.dat", std::ofstream::out | std::ofstream::app);
+                        plotData << ((counter % 10)) << "\t" << avgHr << "\t"  << avgPower << "\t"  << avgProfit << "\n";
+                        plotData.close();
+                    }
                 }
 
                 magnitude = 0;
@@ -854,10 +969,11 @@ void Farm::collectData(const boost::system::error_code& ec)
                 << suffixes[magnitude] << EthReset << EthGray << "  Average Power: " << EthReset << EthRedBold 
                 << std::setfill(' ') << std::setw(6) << avgPower << "W " << EthReset << EthGray << "  Average Profit: " 
                 << EthReset << EthGreenBold << std::setprecision(6) << avgProfit << "CAD/hour" << EthReset << std::endl;
+                
             }
         }
         
-    
+        
         miner->TriggerHashRateUpdate();
     }
 

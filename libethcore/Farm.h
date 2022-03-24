@@ -81,6 +81,9 @@ public:
      */
     void shuffle();
 
+    void plot(bool isHash);
+
+    
     /**
      * @brief Sets the current mining mission.
      * @param _wp The work package we wish to be mining.

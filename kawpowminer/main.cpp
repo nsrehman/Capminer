@@ -22,6 +22,7 @@
 
 #include <kawpowminer/buildinfo.h>
 #include <condition_variable>
+#include <stdio.h>
 
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
@@ -1298,11 +1299,52 @@ int main(int argc, char** argv)
     if(FILE *file = fopen("benchmark.txt", "r"))
     {
         fclose(file);
-        std::fstream myfile("benchmark.txt", std::ios_base::in);
+        std::ifstream  in("benchmark.txt"); // myfile("benchmark.txt", std::ios_base::in);
         std::string clockChoice, powerChoice;
-        myfile >> clockChoice >> powerChoice;
-        system(("..\\..\\..\\..\\ps\\msiProfile" + clockChoice + ".bat").c_str());
-        system(("..\\..\\..\\..\\ps\\pl" + powerChoice + ".bat").c_str());
+        char c;
+        while(in.get(c)){
+            if (c != '\n'){
+                clockChoice += c-100;
+            }
+            else{
+                break;
+            }
+        }
+        while(in.get(c)){
+            if (c != '\n'){
+                powerChoice += c-100;
+            }
+        }
+        in.close();
+
+        // clockChoice = std::string(getc(myfile)-100); 
+        // while(!feof(myfile)){
+        //     powerChoice += (getc(myfile)-100);
+        // }
+       // myfile >> clockChoice >> powerChoice;
+     //   int c = clockChoice.length();
+     //   int p = powerChoice.length();
+     //     char cChoice[c+1];
+     //     char pChoice[p+1];
+     //     strcpy(cChoice, clockChoice.c_str());
+     //     strcpy(pChoice, powerChoice.c_str());
+     //     cChoice -= 100;
+     //     pChoice -= 100;
+     
+        if((clockChoice == "1" || clockChoice == "2" || clockChoice == "3" || clockChoice == "4"  || clockChoice == "5") && (powerChoice == "100" || powerChoice == "90" || powerChoice == "80" || powerChoice == "70" || powerChoice == "60" || powerChoice == "50")){
+            system(("..\\..\\..\\..\\ps\\msiProfile" + clockChoice + ".bat").c_str());
+            system(("..\\..\\..\\..\\ps\\pl" + powerChoice + ".bat").c_str());
+            cout << "if passed" << endl;
+        }
+        else{
+            cout << "in else" << endl;
+            remove("benchmark.txt");
+        }
+    }
+    else{
+        ofstream clearFile("plot.dat");
+        clearFile<<"";
+        // dev::eth::Farm::plot();
     }
     
     // Always out release version
