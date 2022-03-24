@@ -20,7 +20,7 @@ CapMiner is a proof-of-work GPU miner dedicated for [Ravencoin](https://ravencoi
 2. Ensure you have nvidia-smi by opening commandline, type nvidia-smi, and press enter. Output should look something like below.
 3. Install [GNUPlot](http://www.gnuplot.info/) Homepage -> Download -> Primary download site on SourceForge -> latest (i.e. 5.4.3)
 
-**nvidia-smi example:**
+**nvidia-smi example:** <br />
 <img src="images/nvidia-smi.png" width="750" height="400">
 
 Depending on the type of release chosen, extra steps may be required. That being said, the executable variant is simple to implement on any system fullfilling the requirements.
@@ -36,19 +36,19 @@ Any CUDA issues may be resolved by installing the latest [CUDA Toolkit](https://
 ## MSI Afterburner
 By default, MSI Afterburner allows the creation of 5 profiles. You must set the first profile as your stock settings. For the other 4 profiles, change the Memory clock speed to the following.
 
-**Profile 1:**
+**Profile 1:** <br />
 <img src="images/profile1.png" width="750" height="400">
 
-**Profile 2:**
+**Profile 2:** <br />
 <img src="images/profile2.png" width="750" height="400">
 
-**Profile 3:**
+**Profile 3:** <br />
 <img src="images/profile3.png" width="750" height="400">
 
-**Profile 4:**
+**Profile 4:** <br />
 <img src="images/profile4.png" width="750" height="400">
 
-**Profile 5:**
+**Profile 5:** <br />
 <img src="images/profile5.png" width="750" height="400">
 
 ## Installation
@@ -103,16 +103,16 @@ Replace <wallet> with your own mining address to start earning for yourself. Fee
 
 4. If successful, CapMiner will initialize and begin to run as shown:
    
-Miner spinning up:
+**Miner spinning up:** <br />
 <img src="images/start.png" width="750" height="400">
    
-Benchmark start:
+**Benchmark start:** <br />
 <img src="images/benchstart.png" width="750" height="400">
    
-Benchmark complete and miner resumes as usual:
+**Benchmark complete and miner resumes as usual:** <br />
 <img src="images/benchdone.png" width="750" height="400">
    
-Graphs of benchmark data open as bench completes:
+**Graphs of benchmark data open as bench completes:** <br />
 <img src="images/benchgraphs.png" width="750" height="400">
 
 ## APIs and Sofware Used
