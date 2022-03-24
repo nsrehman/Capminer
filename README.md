@@ -138,6 +138,11 @@ JsonCpp is a C++ library that allows manipulating JSON values, including seriali
 CapMiner implements an automatic benchmark system that starts upon app launch. In an average time of 17 minutes, the program cycles different combinations of memory clock speed and power limit. The combination that generates the highest profit is selected and the seetings are saved for use.
 ### How do I redo the benchmark?
 Go to the path where the main .exe is located and delete the benchmark.txt file. Doing this and re-running the application normally will prompt the app to benchmark once again.
-
+### What if I have an AMD card?
+While kawpowminer supports both NVIDIA and AMD GPUs, CapMiner's benchmarking system is only compatible with NVIDIA series cards.
+### I exited CapMiner without using ctrl+c 3 times, how do I go back to my GPUs stock settings?
+If this happens don't worry, all you need to do is open MSI Afterburner and select Profile 1. In the set up for this program, the stock settings had to be saved to the first profile.
+### How do I review the benchmarked graphs after closing them?
+The graph pngs will always be located in the main folder containing the .exe file.
    
 [Releases]: https://github.com/capminer/capminer/releases
