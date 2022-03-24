@@ -94,9 +94,10 @@ cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner\build\build\CapMiner\Release
 ```
 cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner\build\build\CapMiner\Release
 ```
-2. Locate the start.bat and edit the file in notepad. Change the first line to have your wallet and worker name.
+2. Create a .txt file and rename it to "start.bat". Right click the .bat file and click edit. Paste the following code into the file and change the first line to have your wallet and worker name.
 ```
 kawpowminer.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
+%~dp0\..\..\..\..\ps\msiProfile1.bat
 ```
 Replace <wallet> with your own mining address to start earning for yourself. Feel free to replace "worker" to name your miner something meaningful.
 
