@@ -71,7 +71,7 @@ If you choose the source download over the executable release, you **must** foll
 4. Open "Developer Command Prompt for VS 2019"
 5. Enter the following:
 ```
-cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner
+cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner-master
 git init
 git submodule update --init --recursive
 mkdir build
@@ -85,18 +85,18 @@ cmake --build . --config Release
 
 If you have opted for building over installing the executable release, confirm that the build has been successful by checking that **capminer.exe** has been created in the following location:
 ```
-cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner\build\build\CapMiner\Release
+cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner-master\build\build\CapMiner\Release
 ```
 
 ### Connecting to a Pool
 
 1. Navigate to **capminer.exe** directory:
 ```
-cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner\build\build\CapMiner\Release
+cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner-master\build\build\CapMiner\Release
 ```
 2. Create a .txt file and rename it to "start.bat". Right click the .bat file and click edit. Paste the following code into the file and change the first line to have your wallet and worker name.
 ```
-kawpowminer.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
+CapMiner.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
 %~dp0\..\..\..\..\ps\msiProfile1.bat
 ```
 Replace <wallet> with your own mining address to start earning for yourself. Feel free to replace "worker" to name your miner something meaningful.
