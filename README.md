@@ -21,7 +21,7 @@ CapMiner is a proof-of-work GPU miner dedicated for [Ravencoin](https://ravencoi
 3. Install [GNUPlot](http://www.gnuplot.info/) Homepage -> Download -> Primary download site on SourceForge -> latest (i.e. 5.4.3)
 
 **nvidia-smi example:** <br />
-<img src="images/nvidia-smi.png" width="750" height="400">
+<img src="images/nvidia-smi.png" width="580" height="336">
 
 Depending on the type of release chosen, extra steps may be required. That being said, the executable variant is simple to implement on any system fullfilling the requirements.
 
@@ -37,19 +37,19 @@ Any CUDA issues may be resolved by installing the latest [CUDA Toolkit](https://
 By default, MSI Afterburner allows the creation of 5 profiles. You must set the first profile as your stock settings. For the other 4 profiles, change the Memory clock speed to the following.
 
 **Profile 1:** <br />
-<img src="images/profile1.png" width="750" height="400">
+<img src="images/profile1.png" width="580" height="400">
 
 **Profile 2:** <br />
-<img src="images/profile2.png" width="750" height="400">
+<img src="images/profile2.png" width="580" height="400">
 
 **Profile 3:** <br />
-<img src="images/profile3.png" width="750" height="400">
+<img src="images/profile3.png" width="580" height="400">
 
 **Profile 4:** <br />
-<img src="images/profile4.png" width="750" height="400">
+<img src="images/profile4.png" width="580" height="400">
 
 **Profile 5:** <br />
-<img src="images/profile5.png" width="750" height="400">
+<img src="images/profile5.png" width="580" height="400">
 
 ## Installation
 
