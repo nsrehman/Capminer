@@ -115,6 +115,9 @@ Replace <wallet> with your own mining address to start earning for yourself. Fee
 **Graphs of benchmark data open as bench completes:** <br />
 <img src="images/benchgraphs.png" width="750" height="400">
 
+### Closing the program
+If you wish to automatically return to stock GPU settings, on the CapMiner commandline press **ctrl+c ctrl+c ctrl+c** in a sequence. This will exit CapMiner and launch a script to return to profile 1 'stock settings' in MSI Afterburner.
+   
 ## APIs and Sofware Used
 ### Hunter
 Dependency manager running within CMake during configuration step. Downloads and builds all dependencies from source. This is to make the project independent of system libraries.
