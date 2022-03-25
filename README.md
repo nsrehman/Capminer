@@ -150,5 +150,7 @@ While kawpowminer supports both NVIDIA and AMD GPUs, CapMiner's benchmarking sys
 If this happens don't worry, all you need to do is open MSI Afterburner and select Profile 1. In the set up for this program, the stock settings had to be saved to the first profile.
 ### How do I review the benchmarked graphs after closing them?
 The graph pngs will always be located in the main folder containing the .exe file.
+### Why does the program open and close a blue screen periodically?
+To change the power limit of the system, Powershell must run in admin mode. The program does this specifically only for benchmarking and will no longer perform this once benchmark is completed.
    
 [Releases]: https://github.com/capminer/capminer/releases
