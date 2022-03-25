@@ -83,12 +83,20 @@ cd build
 cmake --build . --config Release
 ```
 
-## How to Run
+## How to Run with Source Code
 
 If you have opted for building over installing the executable release, confirm that the build has been successful by checking that **capminer.exe** has been created in the following location:
 ```
 cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner-master\build\build\CapMiner\Release
 ```
+Here create a .txt file and rename it to "start.bat". Right click the .bat file and click edit. Paste the following code into the file and change the first line to have your wallet and worker name.
+```
+CapMiner.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
+%~dp0\..\..\..\..\ps\msiProfile1.bat
+```
+
+## How to Run with Executable Release
+If you have downloaded the executable release, locate the existing start.bat file and replace <wallet> with your own mining address to start earning for yourself. Feel free to replace "worker" to name your miner something meaningful. Run the start.bat to begin mining.
 
 ### Connecting to a Pool
 
@@ -96,13 +104,8 @@ cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner-master\build\build\CapMiner\Release
 ```
 cd C:\Users\CHANGE_THIS_DIRECTORY\CapMiner-master\build\build\CapMiner\Release
 ```
-2. Create a .txt file and rename it to "start.bat". Right click the .bat file and click edit. Paste the following code into the file and change the first line to have your wallet and worker name.
-```
-CapMiner.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
-%~dp0\..\..\..\..\ps\msiProfile1.bat
-```
-Replace <wallet> with your own mining address to start earning for yourself. Feel free to replace "worker" to name your miner something meaningful.
-
+2. Run the start.bat file after having changed the wallet to reflect your own.
+   
 3. If successful, CapMiner will initialize and begin to run as shown:
    
 **Miner spinning up:** <br />
