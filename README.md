@@ -11,6 +11,8 @@ CapMiner is a proof-of-work GPU miner dedicated for [Ravencoin](https://ravencoi
 * [Requirements](#requirements)
 * [Building](#building)
 * [How to Run](#how-to-run)
+    * [Running with Source Code](#running-with-source-code)
+    * [Running with Executable Release](#running-with-executable-release)
     * [Connecting to a Pool](#connecting-to-a-pool)
 * [APIs Used](#apis-used)
 * [F.A.Q.](#faq)
@@ -83,7 +85,8 @@ cd build
 cmake --build . --config Release
 ```
 
-## How to Run with Source Code
+## How to Run 
+### Running with Source Code
 
 If you have opted for building over installing the executable release, confirm that the build has been successful by checking that **capminer.exe** has been created in the following location:
 ```
@@ -95,7 +98,7 @@ CapMiner.exe -P stratum+tcp://<wallet>.worker@rvn.cruxpool.com:9999
 %~dp0\..\..\..\..\ps\msiProfile1.bat
 ```
 
-## How to Run with Executable Release
+### Running with Executable Release
 If you have downloaded the executable release, locate the existing start.bat file and replace <wallet> with your own mining address to start earning for yourself. Feel free to replace "worker" to name your miner something meaningful. Run the start.bat to begin mining.
 
 ### Connecting to a Pool
