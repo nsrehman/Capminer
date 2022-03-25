@@ -17,7 +17,7 @@ CapMiner is a proof-of-work GPU miner dedicated for [Ravencoin](https://ravencoi
 
 ## Requirements
 1. Install [MSI Afterburner](https://www.msi.com/Landing/afterburner/graphics-cards) and configure profiles seen in next section.
-2. Disable [User Access Control](https://www.lifewire.com/disable-uac-in-windows-10-5113191) for your system. This is intended to remove the prompt that is issued when MSI Afterburner sets new profiles. 
+2. Disable [User Access Control](https://www.lifewire.com/disable-uac-in-windows-10-5113191) for your system. This is intended to remove the prompt that is issued when MSI Afterburner sets new profiles and helps the miner application run fluidly.
 3. Ensure you have nvidia-smi by opening commandline, type nvidia-smi, and press enter. Output should look something like below.
 4. Install [GNUPlot](http://www.gnuplot.info/) Homepage -> Download -> Primary download site on SourceForge -> latest (i.e. 5.4.3)
 5. **MAKE SURE TO ENABLE "Add application directory to your PATH environment variable" during the installation of GNUPlot.**
