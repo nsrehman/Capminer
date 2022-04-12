@@ -969,7 +969,6 @@ void Farm::collectData(const boost::system::error_code& ec)
                 << suffixes[magnitude] << EthReset << EthGray << "  Average Power: " << EthReset << EthRedBold 
                 << std::setfill(' ') << std::setw(6) << avgPower << "W " << EthReset << EthGray << "  Average Profit: " 
                 << EthReset << EthGreenBold << std::setprecision(6) << avgProfit << "CAD/hour" << EthReset << std::endl;
-                
             }
         }
         
