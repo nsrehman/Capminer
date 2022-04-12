@@ -67,8 +67,6 @@ namespace dev
 namespace eth
 {
 
-
-
 Farm* Farm::m_this = nullptr;
 
 Farm::Farm(std::map<std::string, DeviceDescriptor>& _DevicesCollection,
