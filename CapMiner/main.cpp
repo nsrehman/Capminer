@@ -1298,6 +1298,7 @@ int main(int argc, char** argv)
 #endif
     if(FILE *file = fopen("benchmark.txt", "r"))
     {
+        dev::eth::Farm::setBenchmark(false);
         fclose(file);
         std::ifstream  in("benchmark.txt"); // myfile("benchmark.txt", std::ios_base::in);
         std::string clockChoice, powerChoice;
@@ -1344,7 +1345,7 @@ int main(int argc, char** argv)
     else{
         ofstream clearFile("plot.dat");
         clearFile<<"";
-        // dev::eth::Farm::plot();
+        dev::eth::Farm::setBenchmark(true);
     }
     
     // Always out release version

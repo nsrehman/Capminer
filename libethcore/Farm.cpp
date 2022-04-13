@@ -61,11 +61,14 @@ double kWhCost = 0.11175;
 // FILE *file = fopen("plot.dat", "a");
 ofstream plotData;
 bool append = false;
+bool optimizeHash = true;
 
 namespace dev
 {
 namespace eth
 {
+
+
 
 Farm* Farm::m_this = nullptr;
 
@@ -222,6 +225,10 @@ void Farm::shuffle()
     m_nonce_scrambler = uniform_int_distribution<uint64_t>()(engine);
 }
 
+void Farm::setBenchmark(bool optimize){
+    optimizeHash = optimize;
+}
+   
 
 void Farm::plot(bool isHash)
 {
@@ -701,9 +708,7 @@ void Farm::collectData(const boost::system::error_code& ec)
         }
         static string suffixes[] = {"h", "Kh", "Mh", "Gh"};
         m_telemetry.farm.hashrate = farm_hr;
-        if(FILE *file = fopen("benchmark.txt", "r")){;}
-        else{
-            if ((hr != 0.0f))
+        if(optimizeHash){if ((hr != 0.0f))
             {
                 counter += 1;
                 ofstream myfile;
@@ -936,7 +941,7 @@ void Farm::collectData(const boost::system::error_code& ec)
                         myfile.close();
                         plot(true);
                         plot(false);
-
+                        setBenchmark(false);
                         break;
                     }
 
@@ -967,9 +972,9 @@ void Farm::collectData(const boost::system::error_code& ec)
                 << suffixes[magnitude] << EthReset << EthGray << "  Average Power: " << EthReset << EthRedBold 
                 << std::setfill(' ') << std::setw(6) << avgPower << "W " << EthReset << EthGray << "  Average Profit: " 
                 << EthReset << EthGreenBold << std::setprecision(6) << avgProfit << "CAD/hour" << EthReset << std::endl;
+                
             }
-        }
-        
+        }        
         
         miner->TriggerHashRateUpdate();
     }

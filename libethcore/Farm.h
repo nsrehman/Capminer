@@ -81,6 +81,8 @@ public:
      */
     void shuffle();
 
+    void static setBenchmark(bool optimize);
+
     void plot(bool isHash);
 
     
